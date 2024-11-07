@@ -61,11 +61,10 @@ public class ReadFile {
                         }
                     }
                 }
-                int gateNumberConvert = Integer.parseInt(gateNumber)-1, carNumberConvert = Integer.parseInt(carNumber), ArriveTimeConvert = Integer.parseInt(ArriveTime), durationConvert = Integer.parseInt(duration);
-                if (gates[gateNumberConvert]==null) {
-                    gates[gateNumberConvert] = new Gate(parkingLot, gateNumberConvert,new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
-                }
-                else {
+                int gateNumberConvert = Integer.parseInt(gateNumber) - 1, carNumberConvert = Integer.parseInt(carNumber), ArriveTimeConvert = Integer.parseInt(ArriveTime), durationConvert = Integer.parseInt(duration);
+                if (gates[gateNumberConvert] == null) {
+                    gates[gateNumberConvert] = new Gate(parkingLot, gateNumberConvert, new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
+                } else {
                     gates[gateNumberConvert].increment(new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
                 }
                 // for (String elem : parts) {
@@ -85,7 +84,7 @@ public class ReadFile {
             }
             List<Thread> gateRunnable = new ArrayList<>();
             for (Gate elem : gates) {
-                if (elem!=null) {
+                if (elem != null) {
                     elem.addCarThreads(parkingLot);
                     gateRunnable.add(new Thread(new GateRunnable(elem)));
                 }

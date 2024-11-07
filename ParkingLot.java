@@ -1,7 +1,9 @@
+
 import java.io.FileNotFoundException;
 import java.util.concurrent.Semaphore;
 
 public class ParkingLot {
+
     private final Semaphore parkingSpots;
     private int currentCars = 0;
     private int totalCarsServed = 0;
@@ -32,10 +34,14 @@ public class ParkingLot {
         parkingSpots.release();
     }
 
-    public int getCurrentCars() { return currentCars; }
-    public int getTotalCarsServed() { return totalCarsServed; }
+    public int getCurrentCars() {
+        return currentCars;
+    }
+
+    public int getTotalCarsServed() {
+        return totalCarsServed;
+    }
 
     // public void run(){
-        
     // }
 }
