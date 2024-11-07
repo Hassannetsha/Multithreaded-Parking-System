@@ -9,26 +9,26 @@ public class CarRunnable implements Runnable {
         this.car = car;
     }
 
-    @Override
+@Override
     public void run() {
-       try {
+        try {
             Thread.sleep(car.getCarArrival() * 100);
             System.out.println("Car " + car.getCarNumber() + " arrived at time " + car.getCarArrival());
+
             long startWait = System.currentTimeMillis();
-            if (parkingLot.tryParkCar()) {
-                Thread.sleep(car.getCarArrival() * 100);
-                long waited = (System.currentTimeMillis() - startWait) / 1000;
-                System.out.println("Car " + car.getCarNumber() + " parked. Waited: " + waited + "s. (Current Spots: " + parkingLot.getCurrentCars() + ")");
-                Thread.sleep(car.getCarDuration() * 100);
-                parkingLot.leaveSpot();
-                System.out.println("Car " + car.getCarNumber() + " left. (Current Spots: " + parkingLot.getCurrentCars() + ")");
-            }
-          else {
+            while (!parkingLot.tryParkCar()) {
                 System.out.println("Car " + car.getCarNumber() + " waiting for a spot.");
+                Thread.sleep(500); // Small wait before reattempting to park
             }
+
+            long waited = (System.currentTimeMillis() - startWait) / 1000;
+            System.out.println("Car " + car.getCarNumber() + " parked. Waited: " + waited + "s. (Current Spots: " + parkingLot.getCurrentCars() + ")");
+            Thread.sleep(car.getCarDuration() * 100);
+            parkingLot.leaveSpot();
+            System.out.println("Car " + car.getCarNumber() + " left. (Current Spots: " + parkingLot.getCurrentCars() + ")");
+
         } catch (InterruptedException e) {
-            // e.printStackTrace();
+            Thread.currentThread().interrupt(); // Properly handle interruption
         }
     }
-
 }
