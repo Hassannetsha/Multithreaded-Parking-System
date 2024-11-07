@@ -11,7 +11,7 @@ public class CarRunnable implements Runnable {
 
     @Override
     public void run() {
-        ttry {
+       try {
             Thread.sleep(car.getCarArrival() * 100);
             System.out.println("Car " + car.getCarNumber() + " arrived at time " + car.getCarArrival());
             long startWait = System.currentTimeMillis();
