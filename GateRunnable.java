@@ -8,9 +8,13 @@ public class GateRunnable implements Runnable {
     }
     @Override
     public void run(){
-         CarThreads = gate.CarThreads;
+         CarThreads = gate.getCarThreads();
         for (Thread elem : CarThreads) {
             elem.start();
+            try {
+                elem.join();
+            } catch (InterruptedException ex) {
+            }
         }
     }
 }
