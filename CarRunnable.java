@@ -11,7 +11,7 @@ public class CarRunnable implements Runnable {
 
     @Override
     public void run() {
-        ttry {
+        try {
             Thread.sleep(car.getCarArrival() * 100);
             System.out.println("Car " + car.getCarNumber() + " arrived at time " + car.getCarArrival());
             long startWait = System.currentTimeMillis();
@@ -23,7 +23,7 @@ public class CarRunnable implements Runnable {
                 parkingLot.leaveSpot();
                 System.out.println("Car " + car.getCarNumber() + " left. (Current Spots: " + parkingLot.getCurrentCars() + ")");
             }
-          else {
+            else {
                 System.out.println("Car " + car.getCarNumber() + " waiting for a spot.");
             }
         } catch (InterruptedException e) {

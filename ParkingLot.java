@@ -34,7 +34,7 @@ public class ParkingLot {
         parkingSpots.release();
     }
 
-    public int getCurrentCars() {
+    public synchronized int getCurrentCars() {
         return currentCars;
     }
 

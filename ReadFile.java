@@ -30,6 +30,7 @@ public class ReadFile {
                                     gateNumber += line.charAt(j);
                                     j++;
                                 }
+                                i = j;
                                 break;
                             }
                             case 2 -> {
@@ -38,6 +39,7 @@ public class ReadFile {
                                     carNumber += line.charAt(j);
                                     j++;
                                 }
+                                i = j;
                                 break;
                             }
                             case 3 -> {
@@ -46,6 +48,7 @@ public class ReadFile {
                                     ArriveTime += line.charAt(j);
                                     j++;
                                 }
+                                i = j;
                                 break;
                             }
                             case 4 -> {
@@ -54,6 +57,7 @@ public class ReadFile {
                                     duration += line.charAt(j);
                                     j++;
                                 }
+                                i = j;
                                 break;
                             }
                             default ->
