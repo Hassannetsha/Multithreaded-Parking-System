@@ -11,10 +11,10 @@ public class GateRunnable implements Runnable {
          CarThreads = gate.getCarThreads();
         for (Thread elem : CarThreads) {
             elem.start();
-            try {
-                elem.join();
-            } catch (InterruptedException ex) {
-            }
+            // try {
+            //     elem.join();
+            // } catch (InterruptedException ex) {
+            // }
         }
     }
 }
