@@ -30,7 +30,7 @@ public class Gate {
     public void addCarThreads(ParkingLot parkingLot) {
         sort();
         for (Car elem : cars) {
-            CarThreads.add(new Thread(new CarRunnable(parkingLot, elem)));
+            CarThreads.add(new Thread(new CarRunnable(parkingLot, elem, this)));
         }
     }
 
