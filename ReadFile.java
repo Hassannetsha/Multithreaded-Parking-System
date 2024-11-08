@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReadFile {
-
-    public static List<Thread> Read(ParkingLot parkingLot) throws FileNotFoundException {
+    
+    public static List<Thread> Read(ParkingLot parkingLot,Start.InnerReadFile innerReadFile) throws FileNotFoundException {
         Gate[] gates = new Gate[3];
-        for (Gate elem : gates) {
-            elem = null;
-        }
+        // for (Gate elem : gates) {
+        //     elem = null;
+        // }
         File input = new File("Input.txt");
         try (Scanner scanner = new Scanner(input)) {
             String line;
@@ -71,6 +71,7 @@ public class ReadFile {
                 } else {
                     gates[gateNumberConvert].increment(new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
                 }
+                innerReadFile.counter++;
                 // for (String elem : parts) {
                 // for (int i = 0; i < parts.length; i++) {
                 //     wordParts = parts[0].split(" ");

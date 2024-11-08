@@ -26,7 +26,7 @@ public class CarRunnable implements Runnable {
                     System.out.println("Car " + car.getCarNumber() + " waiting for a spot.");
                     hasPrintedWaitingMessage = true;
                 }
-                Thread.sleep(50); // Small wait before reattempting to park
+                // Thread.sleep(50); // Small wait before reattempting to park
             }
 
             double waited = (System.currentTimeMillis() - startWait) / 1000.0;

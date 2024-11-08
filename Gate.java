@@ -32,7 +32,7 @@ public class Gate {
     }
 
     public int getGateNumber() {
-        return gateNumber;
+        return gateNumber + 1;
     }
 
     // public void sort() {
