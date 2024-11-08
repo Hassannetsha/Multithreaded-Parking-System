@@ -1,15 +1,12 @@
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Gate {
 
     private final int gateNumber;
-    // private static int numberOfCars = 0;
     private final List<Car> cars;
     private final List<Thread> CarThreads;
-
     public Gate(ParkingLot parkingLot, int gateNumber, Car car) {
         this.gateNumber = gateNumber;
         CarThreads = new ArrayList<>();
@@ -28,7 +25,7 @@ public class Gate {
     }
 
     public void addCarThreads(ParkingLot parkingLot) {
-        sort();
+        // sort();
         for (Car elem : cars) {
             CarThreads.add(new Thread(new CarRunnable(parkingLot, elem, this)));
         }
@@ -38,13 +35,16 @@ public class Gate {
         return gateNumber;
     }
 
-    public void sort() {
-        // int x = CarThreads
-        Collections.sort(cars, new SortComparator());
-    }
+    // public void sort() {
+    //     // int x = CarThreads
+    //     Collections.sort(cars, new SortComparator());
+    // }
 
-    public List<Thread> getCarThreads() {
-        return this.CarThreads;
+    // public List<Thread> getCarThreads() {
+    //     return this.CarThreads;
+    // }
+    public List<Car> getCars() {
+        return this.cars;
     }
 
     public int getNumberOfCars() {
@@ -53,13 +53,13 @@ public class Gate {
     }
 }
 
-class SortComparator implements java.util.Comparator<Car> {
+// class SortComparator implements java.util.Comparator<Car> {
 
-    @Override
-    public int compare(Car a, Car b) {
-        if (a.getCarArrival() == b.getCarArrival()) {
-            return a.getCarNumber() - b.getCarNumber();
-        }
-        return a.getCarArrival() - b.getCarArrival();
-    }
-}
+//     @Override
+//     public int compare(Car a, Car b) {
+//         if (a.getCarArrival() == b.getCarArrival()) {
+//             return a.getCarNumber() - b.getCarNumber();
+//         }
+//         return a.getCarArrival() - b.getCarArrival();
+//     }
+// }
