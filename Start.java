@@ -35,19 +35,12 @@ public class Start {
         }
         entryQueue = Singleton.getInstance();
         // Manage car entry from the queue
-        CarGatePair carGate = entryQueue.take(); // This will block if the queue is empty
-        // System.out.println("Processing CarGatePair: " + carGate);
-        Thread thread = new Thread(new CarRunnable(parkingLot, carGate.getCar(), carGate.getGate()));
-        thread.start();
-        // Thread.sleep(50);
-        innerReadFile.counter--;
         while (innerReadFile.counter-- > 0) {
             try {
-                carGate = entryQueue.take(); // This will block if the queue is empty
-                // System.out.println("Processing CarGatePair: " + carGate);
-                thread = new Thread(new CarRunnable(parkingLot, carGate.getCar(), carGate.getGate()));
+                CarGatePair carGate = entryQueue.take(); // This will block if the queue is empty
+                Thread thread = new Thread(new CarRunnable(parkingLot, carGate.getCar(), carGate.getGate()));
                 thread.start();
-                // Thread.sleep(50);
+                Thread.sleep(10);
                 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
