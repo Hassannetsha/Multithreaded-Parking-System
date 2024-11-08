@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReadFile {
-    
-    public static List<Thread> Read(ParkingLot parkingLot,Start.InnerReadFile innerReadFile) throws FileNotFoundException {
-        Gate[] gates = new Gate[3];
+    public static Gate[] gates = new Gate[3];
+    public static int MaxTime = 0;
+
+    public static List<Thread> Read(ParkingLot parkingLot, Start.InnerReadFile innerReadFile)
+            throws FileNotFoundException {
+
         // for (Gate elem : gates) {
-        //     elem = null;
+        // elem = null;
         // }
         File input = new File("Input.txt");
         try (Scanner scanner = new Scanner(input)) {
@@ -65,27 +68,31 @@ public class ReadFile {
                         }
                     }
                 }
-                int gateNumberConvert = Integer.parseInt(gateNumber) - 1, carNumberConvert = Integer.parseInt(carNumber), ArriveTimeConvert = Integer.parseInt(ArriveTime), durationConvert = Integer.parseInt(duration);
+                int gateNumberConvert = Integer.parseInt(gateNumber) - 1,
+                        carNumberConvert = Integer.parseInt(carNumber),
+                        ArriveTimeConvert = Integer.parseInt(ArriveTime), durationConvert = Integer.parseInt(duration);
+                MaxTime = Math.max(MaxTime, durationConvert);
                 if (gates[gateNumberConvert] == null) {
-                    gates[gateNumberConvert] = new Gate(parkingLot, gateNumberConvert, new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
+                    gates[gateNumberConvert] = new Gate(parkingLot, gateNumberConvert,
+                            new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
                 } else {
                     gates[gateNumberConvert].increment(new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
                 }
                 innerReadFile.counter++;
                 // for (String elem : parts) {
                 // for (int i = 0; i < parts.length; i++) {
-                //     wordParts = parts[0].split(" ");
-                //     switch (i) {
-                //         case 0:
-                //             gateNumber = ;
-                //             break;
-                //         case 1:
-                //             break;
-                //         default:
-                //             throw new AssertionError();
-                //     }
+                // wordParts = parts[0].split(" ");
+                // switch (i) {
+                // case 0:
+                // gateNumber = ;
+                // break;
+                // case 1:
+                // break;
+                // default:
+                // throw new AssertionError();
                 // }
-                //     wordParts = elem.split(" ");
+                // }
+                // wordParts = elem.split(" ");
             }
             List<Thread> gateRunnable = new ArrayList<>();
             for (Gate elem : gates) {

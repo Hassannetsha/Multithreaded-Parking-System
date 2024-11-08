@@ -19,7 +19,7 @@ public class CarRunnable implements Runnable {
         try {
 
             Thread.sleep(car.getCarArrival() * 100);
-            try (FileWriter writer = new FileWriter("Output.txt")) {
+            try (FileWriter writer = new FileWriter("Output.txt",true)) {
                 writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " arrived at time "
                         + car.getCarArrival() + "\n");
                 writer.flush();
