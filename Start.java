@@ -31,6 +31,7 @@ public class Start {
         // }
         for (Thread gateThread : gateThreads) {
             gateThread.start();
+            // Thread.sleep(100);
         }
         entryQueue = Singleton.getInstance();
         // Manage car entry from the queue
