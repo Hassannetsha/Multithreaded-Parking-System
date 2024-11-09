@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
+// import java.io.FileWriter;
+// import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -17,13 +18,15 @@ public class Start {
     private static PriorityBlockingQueue<CarGatePair> entryQueue;
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {
+        FileContentWriter startWriter = new FileContentWriter("Output.txt");
 
-        try (FileWriter writer = new FileWriter("Output.txt")) {
-            writer.write("");
-            writer.flush();
-        } catch (IOException e) {
+        startWriter.write(false, "");
+        // try (FileWriter writer = new FileWriter("Output.txt")) {
+        // writer.write("");
+        // writer.flush();
+        // } catch (IOException e) {
 
-        }
+        // }
 
         parkingLot = new ParkingLot(4);
         InnerReadFile innerReadFile = new InnerReadFile();
@@ -84,20 +87,34 @@ public class Start {
          * Details:- Gate 1 served 5 cars.- Gate 2 served 5 cars.- Gate 3 serve
          */
 
-        //Thread.sleep(ReadFile.MaxTime * 1000);
+        // Thread.sleep(ReadFile.MaxTime * 1000);
         Thread.sleep(1500);
-        try (FileWriter writer = new FileWriter("Output.txt", true)) {
-            writer.write("Total Cars Served:  " + String.valueOf(parkingLot.getTotalCarsServed()) + "\n"
-                    + "Current Cars in Parking: " + String.valueOf(parkingLot.getCurrentCars()) + "\n"
-                    + "Details: \n" + "- Gate " + String.valueOf(ReadFile.gates[0].getGateNumber()) + " served "
-                    + String.valueOf(ReadFile.gates[0].getNumberOfCars()) + " cars.\n" + "- Gate "
-                    + String.valueOf(ReadFile.gates[1].getGateNumber()) + " served "
-                    + String.valueOf(ReadFile.gates[1].getNumberOfCars()) + " cars.\n" + "- Gate "
-                    + String.valueOf(ReadFile.gates[2].getGateNumber()) + " served "
-                    + String.valueOf(ReadFile.gates[2].getNumberOfCars()) + " cars.\n");
-            writer.flush();
-        } catch (IOException e) {
+        startWriter.write(true, ("Total Cars Served:  " + String.valueOf(parkingLot.getTotalCarsServed()) + "\n"
+                + "Current Cars in Parking: " + String.valueOf(parkingLot.getCurrentCars()) + "\n"
+                + "Details: \n"));
 
+        for (Gate gate : ReadFile.gates) {
+            startWriter.write(true, "- Gate " + String.valueOf(gate.getGateNumber()) + " served "
+                    + String.valueOf(gate.getNumberOfCars()) + " cars.\n");
         }
+
+        // try (FileWriter writer = new FileWriter("Output.txt", true)) {
+        // writer.write("Total Cars Served: " +
+        // String.valueOf(parkingLot.getTotalCarsServed()) + "\n"
+        // + "Current Cars in Parking: " + String.valueOf(parkingLot.getCurrentCars()) +
+        // "\n"
+        // + "Details: \n" + "- Gate " +
+        // String.valueOf(ReadFile.gates[0].getGateNumber()) + " served "
+        // + String.valueOf(ReadFile.gates[0].getNumberOfCars()) + " cars.\n" + "- Gate
+        // "
+        // + String.valueOf(ReadFile.gates[1].getGateNumber()) + " served "
+        // + String.valueOf(ReadFile.gates[1].getNumberOfCars()) + " cars.\n" + "- Gate
+        // "
+        // + String.valueOf(ReadFile.gates[2].getGateNumber()) + " served "
+        // + String.valueOf(ReadFile.gates[2].getNumberOfCars()) + " cars.\n");
+        // writer.flush();
+        // } catch (IOException e) {
+
+        // }
     }
 }

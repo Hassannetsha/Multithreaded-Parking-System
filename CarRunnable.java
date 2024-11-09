@@ -1,5 +1,5 @@
-import java.io.FileWriter;
-import java.io.IOException;
+// import java.io.FileWriter;.
+// import java.io.IOException;
 
 public class CarRunnable implements Runnable {
 
@@ -16,28 +16,38 @@ public class CarRunnable implements Runnable {
 
     @Override
     public void run() {
+        FileContentWriter carRunnableWriter = new FileContentWriter("Output.txt");
+
         try {
 
             Thread.sleep(car.getCarArrival() * 100);
-            try (FileWriter writer = new FileWriter("Output.txt",true)) {
-                writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " arrived at time "
-                        + car.getCarArrival() + "\n");
-                writer.flush();
-            } catch (IOException e) {
+            carRunnableWriter.write(true,
+                    "Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " arrived at time "
+                            + car.getCarArrival() + "\n");
+            // try (FileWriter writer = new FileWriter("Output.txt",true)) {
+            // writer.write("Car " + car.getCarNumber() + " from Gate " +
+            // gate.getGateNumber() + " arrived at time "
+            // + car.getCarArrival() + "\n");
+            // writer.flush();
+            // } catch (IOException e) {
 
-            }
+            // }
 
             long startWaitTime = 0;
             synchronized (parkingLot) {
                 while (!parkingLot.tryParkCar()) {
                     if (!hasPrintedWaitingMessage) {
-                        try (FileWriter writer = new FileWriter("Output.txt", true)) {
-                            writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber()
-                                    + " waiting for a spot.\n");
-                            writer.flush();
-                        } catch (IOException e) {
+                        carRunnableWriter.write(true, "Car " + car.getCarNumber() + " from Gate " +
+                                gate.getGateNumber()
+                                + " waiting for a spot.\n");
+                        // try (FileWriter writer = new FileWriter("Output.txt", true)) {
+                        // writer.write("Car " + car.getCarNumber() + " from Gate " +
+                        // gate.getGateNumber()
+                        // + " waiting for a spot.\n");
+                        // writer.flush();
+                        // } catch (IOException e) {
 
-                        }
+                        // }
                         hasPrintedWaitingMessage = true;
                     }
                     startWaitTime = System.currentTimeMillis();
@@ -48,38 +58,58 @@ public class CarRunnable implements Runnable {
                 if (hasPrintedWaitingMessage) {
                     long waitTime = System.currentTimeMillis() - startWaitTime;
 
-                    try (FileWriter writer = new FileWriter("Output.txt", true)) {
-                        writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " parked"
-                                + " after waiting for " + (waitTime / 100 == 0 ? 1 : waitTime / 100) + " units of time."
-                                + " (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
-                        writer.flush();
-                    } catch (IOException e) {
+                    carRunnableWriter.write(true, "Car " + car.getCarNumber() + " from Gate " +
+                            gate.getGateNumber() + " parked"
+                            + " after waiting for " + (waitTime / 100 == 0 ? 1 : waitTime / 100) + " units of time."
+                            + " (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
 
-                    }
+                    // try (FileWriter writer = new FileWriter("Output.txt", true)) {
+                    // writer.write("Car " + car.getCarNumber() + " from Gate " +
+                    // gate.getGateNumber() + " parked"
+                    // + " after waiting for " + (waitTime / 100 == 0 ? 1 : waitTime / 100) + "
+                    // units of time."
+                    // + " (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
+                    // writer.flush();
+                    // } catch (IOException e) {
+
+                    // }
                 } else {
 
-                    try (FileWriter writer = new FileWriter("Output.txt", true)) {
-                        writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " parked."
-                                + " (Parking Status: " + parkingLot.getCurrentCars()
-                                + " spots occupied)\n");
-                        writer.flush();
-                    } catch (IOException e) {
+                    carRunnableWriter.write(true, "Car " + car.getCarNumber() + " from Gate " +
+                            gate.getGateNumber() + " parked."
+                            + " (Parking Status: " + parkingLot.getCurrentCars()
+                            + " spots occupied)\n");
 
-                    }
+                    // try (FileWriter writer = new FileWriter("Output.txt", true)) {
+                    // writer.write("Car " + car.getCarNumber() + " from Gate " +
+                    // gate.getGateNumber() + " parked."
+                    // + " (Parking Status: " + parkingLot.getCurrentCars()
+                    // + " spots occupied)\n");
+                    // writer.flush();
+                    // } catch (IOException e) {
+
+                    // }
                 }
             }
             Thread.sleep(car.getCarDuration() * 100);
             synchronized (parkingLot) {
                 parkingLot.leaveSpot();
 
-                try (FileWriter writer = new FileWriter("Output.txt", true)) {
-                    writer.write("Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " left after "
-                            + car.getCarDuration()
-                            + " units of time. (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
-                    writer.flush();
-                } catch (IOException e) {
+                carRunnableWriter.write(true, "Car " + car.getCarNumber() + " from Gate " +
+                        gate.getGateNumber() + " left after "
+                        + car.getCarDuration()
+                        + " units of time. (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
 
-                }
+                // try (FileWriter writer = new FileWriter("Output.txt", true)) {
+                // writer.write("Car " + car.getCarNumber() + " from Gate " +
+                // gate.getGateNumber() + " left after "
+                // + car.getCarDuration()
+                // + " units of time. (Parking Status: " + parkingLot.getCurrentCars() + " spots
+                // occupied)\n");
+                // writer.flush();
+                // } catch (IOException e) {
+
+                // }
                 parkingLot.notify(); // Notify other threads waiting for a spot
             }
         } catch (InterruptedException e) {
