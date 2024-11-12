@@ -9,16 +9,11 @@ public class ReadFile {
     public static Gate[] gates = new Gate[3];
     public static int MaxTime = 0;
 
-    public static List<Thread> Read(ParkingLot parkingLot, Start.InnerReadFile innerReadFile)
+    public static List<Thread> Read(ParkingLot parkingLot, Main.InnerReadFile innerReadFile)
             throws FileNotFoundException {
-
-        // for (Gate elem : gates) {
-        // elem = null;
-        // }
         File input = new File("Input.txt");
         try (Scanner scanner = new Scanner(input)) {
             String line;
-            // String[] parts,wordParts;
             while (scanner.hasNextLine()) {
                 String gateNumber = "", carNumber = "", ArriveTime = "", duration = "";
                 line = scanner.nextLine();
@@ -28,39 +23,23 @@ public class ReadFile {
                         ctn++;
                         switch (ctn) {
                             case 1 -> {
-                                int j = i;
-                                while (j < line.length() && Character.isDigit(line.charAt(j))) {
-                                    gateNumber += line.charAt(j);
-                                    j++;
-                                }
-                                i = j;
+                                gateNumber = parseDigits(line, i);
+                                i += gateNumber.length();
                                 break;
                             }
                             case 2 -> {
-                                int j = i;
-                                while (j < line.length() && Character.isDigit(line.charAt(j))) {
-                                    carNumber += line.charAt(j);
-                                    j++;
-                                }
-                                i = j;
+                                carNumber = parseDigits(line, i);
+                                i += carNumber.length();
                                 break;
                             }
                             case 3 -> {
-                                int j = i;
-                                while (j < line.length() && Character.isDigit(line.charAt(j))) {
-                                    ArriveTime += line.charAt(j);
-                                    j++;
-                                }
-                                i = j;
+                                ArriveTime = parseDigits(line, i);
+                                i += ArriveTime.length();
                                 break;
                             }
                             case 4 -> {
-                                int j = i;
-                                while (j < line.length() && Character.isDigit(line.charAt(j))) {
-                                    duration += line.charAt(j);
-                                    j++;
-                                }
-                                i = j;
+                                duration = parseDigits(line, i);
+                                i += duration.length();
                                 break;
                             }
                             default ->
@@ -79,20 +58,6 @@ public class ReadFile {
                     gates[gateNumberConvert].increment(new Car(carNumberConvert, ArriveTimeConvert, durationConvert));
                 }
                 innerReadFile.counter++;
-                // for (String elem : parts) {
-                // for (int i = 0; i < parts.length; i++) {
-                // wordParts = parts[0].split(" ");
-                // switch (i) {
-                // case 0:
-                // gateNumber = ;
-                // break;
-                // case 1:
-                // break;
-                // default:
-                // throw new AssertionError();
-                // }
-                // }
-                // wordParts = elem.split(" ");
             }
             List<Thread> gateRunnable = new ArrayList<>();
             for (Gate elem : gates) {
@@ -103,5 +68,15 @@ public class ReadFile {
             }
             return gateRunnable;
         }
+    }
+
+    private static String parseDigits(String line, int startIndex) {
+        String result = "";
+        int j = startIndex;
+        while (j < line.length() && Character.isDigit(line.charAt(j))) {
+            result += line.charAt(j);
+            j++;
+        }
+        return result;
     }
 }
