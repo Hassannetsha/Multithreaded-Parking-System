@@ -1,6 +1,3 @@
-// import java.io.FileWriter;.
-// import java.io.IOException;
-
 public class CarRunnable implements Runnable {
 
     private final ParkingLot parkingLot;
