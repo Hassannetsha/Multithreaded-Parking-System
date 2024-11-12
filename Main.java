@@ -27,10 +27,9 @@ public class Main {
             gateThread.start();
         }
         entryQueue = Singleton.getInstance();
-        // Manage car entry from the queue
         while (innerReadFile.counter-- > 0) {
             try {
-                CarGatePair carGate = entryQueue.take(); // This will block if the queue is empty
+                CarGatePair carGate = entryQueue.take();
                 Thread thread = new Thread(new CarRunnable(parkingLot, carGate.getCar(), carGate.getGate()));
                 thread.start();
 
