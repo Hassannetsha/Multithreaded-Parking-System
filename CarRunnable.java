@@ -62,10 +62,10 @@ public class CarRunnable implements Runnable {
                         gate.getGateNumber() + " left after "
                         + car.getCarDuration()
                         + " units of time. (Parking Status: " + parkingLot.getCurrentCars() + " spots occupied)\n");
-                parkingLot.notify(); // Notify other threads waiting for a spot
+                parkingLot.notify();
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Properly handle interruption
+            Thread.currentThread().interrupt();
         }
     }
 }
