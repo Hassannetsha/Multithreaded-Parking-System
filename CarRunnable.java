@@ -18,12 +18,12 @@ public class CarRunnable implements Runnable {
         try {
 
             Thread.sleep(car.getCarArrival() * 100);
-            carRunnableWriter.write(true,
-                    "Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " arrived at time "
-                            + car.getCarArrival() + "\n");
-
+            
             long startWaitTime = 0;
             synchronized (parkingLot) {
+                carRunnableWriter.write(true,
+                        "Car " + car.getCarNumber() + " from Gate " + gate.getGateNumber() + " arrived at time "
+                                + car.getCarArrival() + "\n");
                 while (!parkingLot.tryParkCar()) {
                     if (!hasPrintedWaitingMessage) {
                         carRunnableWriter.write(true, "Car " + car.getCarNumber() + " from Gate " +

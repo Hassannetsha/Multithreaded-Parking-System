@@ -1,15 +1,14 @@
 
 import java.io.FileNotFoundException;
-import java.util.concurrent.Semaphore;
 
 public class ParkingLot {
 
-    private final Semaphore parkingSpots;
+    private final semaphore parkingSpots;
     private int currentCars = 0;
     private int totalCarsServed = 0;
 
     public ParkingLot(int spots) throws FileNotFoundException {
-        parkingSpots = new Semaphore(spots, true);
+        parkingSpots = new semaphore(spots);
 
     }
 
