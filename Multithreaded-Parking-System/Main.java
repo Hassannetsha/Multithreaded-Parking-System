@@ -48,8 +48,10 @@ public class Main {
                 + "Details: \n"));
 
         for (Gate gate : ReadFile.gates) {
-            startWriter.write(true, "- Gate " + String.valueOf(gate.getGateNumber()) + " served "
-                    + String.valueOf(gate.getNumberOfCars()) + " cars.\n");
+            if (gate != null) {
+                startWriter.write(true, "- Gate " + String.valueOf(gate.getGateNumber()) + " served "
+                        + String.valueOf(gate.getNumberOfCars()) + " cars.\n");
+            }
         }
 
     }
